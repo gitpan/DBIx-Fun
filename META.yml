@@ -1,0 +1,28 @@
+---
+name: DBIx-Fun
+version: 0.01
+author:
+  - Jeffery Klein
+abstract: 'DBIx::Fun - Call stored procedures without the fuss and muss.'
+license: gpl
+resources:
+  license: http://www.opensource.org/licenses/gpl-license.php
+requires:
+  DBI: 1.51
+  perl: 5.8.2
+build_requires:
+  Test::More: 0.01
+provides:
+  DBIx::Fun:
+    file: lib/DBIx/Fun.pm
+    version: 0.01
+  DBIx::Fun::Oracle:
+    file: lib/DBIx/Fun/Oracle.pm
+    version: 0.00
+  DBIx::Fun::Sybase:
+    file: lib/DBIx/Fun/Sybase.pm
+    version: 0.00
+generated_by: Module::Build version 0.2805
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
