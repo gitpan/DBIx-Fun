@@ -1,4 +1,4 @@
-#$Id: Fun.pm,v 1.5 2006/08/29 13:34:54 jef539 Exp $
+#$Id: Fun.pm,v 1.7 2006/10/04 19:16:27 jef539 Exp $
 package DBIx::Fun;
 
 =head1 NAME
@@ -36,7 +36,7 @@ as if they were methods on an object.
 use strict;
 use Carp ();    # don't import any subs, call them explicitly
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 require Exporter;
 our @ISA         = qw(Exporter);
@@ -60,8 +60,15 @@ sub new {
       if $class eq __PACKAGE__;
 
     my $self = bless { cache => {}, %args }, $class;
+
+    # override _init in subclass
+    $self->_init();
     return $self;
 }
+
+# override _init in subclass
+sub _init { }
+
 
 =head2 context( $dbh ) 
 
@@ -127,10 +134,10 @@ Returns a context for $dbh, cached in $dbh.  Exportable as a function.
 
 sub fun {
     my ($dbh) = @_;
-    $dbh->{private_dbix_fun_cache} ||= {};
+    $dbh->{private_dbix_fun} ||= { cache => {} };
     return DBIx::Fun->context(
-        dbh   => $dbh,
-        cache => $dbh->{private_dbix_fun_cache}
+        dbh => $dbh,
+        %{ $dbh->{private_dbix_fun} }
     );
 }
 
@@ -230,6 +237,18 @@ sub _call {
     return $obj->(@_) if ref($obj) eq 'CODE';
     return $obj if $obj;
     $self->_croak_notfound($name);
+}
+
+sub can {
+    my ( $self, $name ) = @_;
+    my $obj = $self->SUPER::can($name);
+    return $obj if $obj;
+
+    $obj = $self->_lookup($name);
+    print $obj;
+    return $obj if ref($obj) eq 'CODE';
+    return sub { $obj } if defined $obj;
+    return undef;
 }
 
 #======

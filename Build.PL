@@ -1,16 +1,17 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 use strict;
+use warnings;
 use Module::Build;
 
 my $build = Module::Build->new(
     dist_name => 'DBIx-Fun',
-    dist_version => "0.01",
-    dist_author => 'Jeffery Klein',
-    dist_abstract => 'DBIx::Fun - Call stored procedures without the fuss and muss.',
-    license => 'gpl',
+    dist_version => '0.02',
+    dist_author => 'Jeffrey Klein',
+    dist_abstract =>'DBIx::Fun - access database stored procedures as methods',
+    license => 'perl',
     requires => {
-        perl => '5.8.2',
-        DBI => 1.51
+        perl => '5.8',
+        DBI => '1.38',
     },
     build_requires => {
         'Test::More' => 0.01

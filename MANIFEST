@@ -1,5 +1,4 @@
 README
-META.yml
 Build.PL
 lib/DBIx/Fun/Sybase.pm
 lib/DBIx/Fun/Oracle.pm
@@ -24,3 +23,4 @@ examples/funfunc.pl
 examples/sampledata.sql
 examples/nofunproc.pl
 t/00load.t
+META.yml
